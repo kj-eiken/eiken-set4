@@ -1372,7 +1372,7 @@ function startListening(part){
   document.getElementById('lis-quiz').style.display='block';
   document.getElementById('lis-result').style.display='none';
   // introアナウンス再生
-  const introMap={1:'https://raw.githubusercontent.com/{{AUDIO_REPO}}/main/Set4_P1_intro.mp3',2:'https://raw.githubusercontent.com/{{AUDIO_REPO}}/main/Set4_P2_intro.mp3',3:'https://raw.githubusercontent.com/{{AUDIO_REPO}}/main/Set4_P3_intro.mp3'};
+  const introMap={1:'https://raw.githubusercontent.com/kodomojuku/eiken-audio4/main/Set4_P1_intro.mp3',2:'https://raw.githubusercontent.com/kodomojuku/eiken-audio4/main/Set4_P2_intro.mp3',3:'https://raw.githubusercontent.com/kodomojuku/eiken-audio4/main/Set4_P3_intro.mp3'};
   const introSrc=introMap[part];
   if(introSrc){
     if(currentAudio){currentAudio.pause();currentAudio=null;}
@@ -1543,7 +1543,7 @@ function lisNext(){
     const isLastPart=(lisRange[1]===LIS_Q.length-1);
     if(isLastPart){
       if(currentAudio){currentAudio.pause();currentAudio=null;}
-      const endingAudio=new Audio('https://raw.githubusercontent.com/{{AUDIO_REPO}}/main/Set4_ending.mp3');
+      const endingAudio=new Audio('https://raw.githubusercontent.com/kodomojuku/eiken-audio4/main/Set4_ending.mp3');
       endingAudio.play().catch(()=>{});
       endingAudio.onended=()=>{currentAudio=null; showLisPartResult();};
       currentAudio=endingAudio;
@@ -2041,7 +2041,7 @@ function showLisReview(){
 // =========================================================
 // ★ 保存・復元・送信
 // =========================================================
-const LS_KEY='{{LS_KEY}}'; // 例: eiken_pre2_set3_v2
+const LS_KEY='eiken_pre2_set4_v1'; // 例: eiken_pre2_set3_v2
 
 function saveState(){
   try{
@@ -2572,7 +2572,7 @@ function printSection(section, mode){
 // =========================================================
 
 // ===== ログイン =====
-const GAS_URL='{{GAS_URL}}'; // set3用に新規デプロイしたGASのWebアプリURLを設定
+const GAS_URL='https://script.google.com/macros/s/AKfycbyutTjG7SDJmeUyFrrNHZLl_BFn_GCl6WSJUzVXASi4YbPyilqYlkpHqj4eOMQG4m5FPg/exec'; // set3用に新規デプロイしたGASのWebアプリURLを設定
 
 async function doLogin(){
   const id=document.getElementById('login-id').value.trim();
