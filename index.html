@@ -2045,9 +2045,14 @@ function showLisReview(){
 // =========================================================
 // ★ 保存・復元・送信
 // =========================================================
-const LS_KEY='eiken_pre2_set4_v1'; // 例: eiken_pre2_set3_v2
+let LS_KEY=null; // 生徒ごとに分離するため、ログイン時に setLsKeyForStudent() で設定する
+const LS_KEY_PREFIX='eiken_pre2_set4_v1'; // 例: eiken_pre2_set3_v2
+function setLsKeyForStudent(studentId){
+  LS_KEY = LS_KEY_PREFIX + '_' + String(studentId||'').trim();
+}
 
 function saveState(){
+  if(!LS_KEY)return;
   try{
     const q5t=document.getElementById('q5-textarea');
     const q6t=document.getElementById('q6-textarea');
@@ -2067,6 +2072,7 @@ function saveState(){
 }
 
 function loadState(){
+  if(!LS_KEY)return;
   try{
     const raw=localStorage.getItem(LS_KEY);if(!raw)return;
     const state=JSON.parse(raw);
@@ -2594,6 +2600,7 @@ async function doLogin(){
   btn.innerHTML='<ruby>確認<rt>かくにん</rt></ruby>中…';
 
   function loginSuccess(email, isAdmin){
+    setLsKeyForStudent(id);
     document.getElementById('login-overlay').style.display='none';
       document.body.classList.add('logged-in');
     const sid=document.getElementById('student-id');
