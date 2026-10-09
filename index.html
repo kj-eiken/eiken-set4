@@ -903,7 +903,7 @@ button ruby rt{color:inherit}
     <div class="email-head"><table><tr><td>From:</td><td>Mia Carter &lt;mia.c22@brightmail.net&gt;</td></tr><tr><td>To:</td><td>You</td></tr><tr><td>Subject:</td><td>Food festival</td></tr></table></div>
     <div class="email-body">
       <p>Hi!</p>
-      <p>I went to <u>a food festival in my city</u> last weekend. There were more than thirty food trucks, and I tried dishes from five different countries. My favorite was a spicy noodle dish from Thailand. Do you think food festivals are a good way to learn about different cultures?</p>
+      <p>I went to <u>a food festival</u> in my city last weekend. There were more than thirty food trucks, and I tried dishes from five different countries. My favorite was a spicy noodle dish from Thailand. Do you think food festivals are a good way to learn about different cultures?</p>
       <p>Your friend,<br>Mia</p>
     </div>
   </div>
@@ -1544,8 +1544,11 @@ function lisNext(){
     if(isLastPart){
       if(currentAudio){currentAudio.pause();currentAudio=null;}
       const endingAudio=new Audio('https://raw.githubusercontent.com/kj-eiken/eiken-audio4/main/Set4_ending.mp3');
-      endingAudio.play().catch(()=>{});
-      endingAudio.onended=()=>{currentAudio=null; showLisPartResult();};
+      let endingDone=false;
+      const finishEnding=()=>{if(endingDone)return;endingDone=true;currentAudio=null;showLisPartResult();};
+      endingAudio.onended=finishEnding;
+      endingAudio.onerror=finishEnding;
+      endingAudio.play().catch(finishEnding);
       currentAudio=endingAudio;
     } else {
       showLisPartResult();
