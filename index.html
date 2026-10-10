@@ -1156,7 +1156,7 @@ function ar(text){
   // 既存のrubyタグ内の漢字を二重処理しないよう、rubyタグ部分をプレースホルダーで退避
   const rubyPhs={};let ri=0;
   text=text.replace(/<ruby[\s\S]*?<\/ruby>/g,(m)=>{const ph=`\x01${ri}\x01`;rubyPhs[ph]=m;ri++;return ph;});
-  const phs={};let i=0;for(const [w,r] of RL){if(text.includes(w)){const ph=`\x00${i}\x00`;text=text.split(w).join(ph);const tag=`<ruby>${w}<rt>${r}</rt></ruby>`;const ph2=`\x01${ri}\x01`;rubyPhs[ph2]=tag;ri++;phs[ph]=ph2;i++;}}for(const [ph,tag] of Object.entries(phs))text=text.split(ph).join(tag);
+  const phs={};let i=0;for(const [w,r] of RL){if(text.includes(w)){const ph=`\x00${i}\x00`;text=text.split(w).join(ph);const tag=buildRuby(w,r);const ph2=`\x01${ri}\x01`;rubyPhs[ph2]=tag;ri++;phs[ph]=ph2;i++;}}for(const [ph,tag] of Object.entries(phs))text=text.split(ph).join(tag);
   // 退避したrubyタグを復元
   for(const [ph,tag] of Object.entries(rubyPhs))text=text.split(ph).join(tag);
   return text;
